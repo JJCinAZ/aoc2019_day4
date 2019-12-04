@@ -27,6 +27,28 @@ func Test_isPossible(t *testing.T) {
 	}
 }
 
+func Test_isPossible2(t *testing.T) {
+	type args struct {
+		x int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{"test1", args{112233}, 1},
+		{"test2", args{123444}, 0},
+		{"test3", args{111122}, 1},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isPossible2(tt.args.x); got != tt.want {
+				t.Errorf("isPossible2(%d) = %v, want %v", tt.args.x, got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_getPossible(t *testing.T) {
 	type args struct {
 		start int

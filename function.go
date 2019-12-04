@@ -33,6 +33,39 @@ func getPossible(start, end int) int {
 }
 
 // Return 0 if not possible, 1 if possible
+func isPossible2(x int) int {
+	s := strconv.Itoa(x)
+	var (
+		lastC rune
+		gs [10]int
+		notIncreasing bool
+		hasDouble bool
+	)
+	for pos, c := range s {
+		if pos > 0 {
+			if lastC == c {
+				gs[c - '0']++
+			}
+			if c < lastC {
+				notIncreasing = true
+				break
+			}
+		}
+		lastC = c
+	}
+	for i := range gs {
+		if gs[i] == 1 {
+			hasDouble = true
+			break
+		}
+	}
+	if hasDouble && !notIncreasing {
+		return 1
+	}
+	return 0
+}
+
+// Return 0 if not possible, 1 if possible
 func isPossible(x int) int {
 	s := strconv.Itoa(x)
 	var (
