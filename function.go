@@ -21,13 +21,30 @@ func Part1(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-	w.Write([]byte(fmt.Sprintf("Number of possible passwords is %d", getPossible(start, end))))
+	w.Write([]byte(fmt.Sprintf("Number of possible passwords is %d",
+		getPossible(start, end, isPossible))))
 }
 
-func getPossible(start, end int) int {
+func Part2(w http.ResponseWriter, r *http.Request) {
+	input, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Missing input", http.StatusNotAcceptable)
+		return
+	}
+	start, end, err := parseInput(string(input))
+	if err != nil {
+		http.Error(w, "Invalid input: " + err.Error(), http.StatusNotAcceptable)
+		return
+	}
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Write([]byte(fmt.Sprintf("Number of possible passwords is %d",
+		getPossible(start, end, isPossible2))))
+}
+
+func getPossible(start, end int, check func(int) int) int {
 	count := 0
 	for i := start; i <= end; i++ {
-		count += isPossible(i)
+		count += check(i)
 	}
 	return count
 }

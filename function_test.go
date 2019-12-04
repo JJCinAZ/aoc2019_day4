@@ -66,7 +66,7 @@ func Test_getPossible(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := getPossible(tt.args.start, tt.args.end); got != tt.want {
+			if got := getPossible(tt.args.start, tt.args.end, isPossible); got != tt.want {
 				t.Errorf("getPossible() = %v, want %v", got, tt.want)
 			}
 		})
